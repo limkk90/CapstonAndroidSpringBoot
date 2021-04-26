@@ -101,8 +101,6 @@ public class BoardRestAPI {
         log.info("[POST BoardAPI (/gboard)] CRITERIA : " + boardInfo.getCriteria());
         log.info("[POST BoardAPI (/gboard)] B_DTT : " + boardInfo.getB_dtt());
 
-        increaseVisit(boardInfo.getB_dtt());
-
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("page", boardInfo.getCriteria());
 
@@ -117,7 +115,7 @@ public class BoardRestAPI {
     }
 
     // 글 작성
-    @PostMapping("/board")
+    @PostMapping("/board/make")
     public void registerPost(@RequestBody Board board){
         log.info("[POST BoardAPI (/board)] BOARD : " + board);
 
@@ -125,7 +123,7 @@ public class BoardRestAPI {
     }
 
     // 글 수정
-    @PutMapping("/board")
+    @PutMapping("/board/update")
     public void modify(@RequestBody Board board){
         log.info("[PUT BoardAPI (/board)] BOARD : " + board);
 
@@ -134,21 +132,16 @@ public class BoardRestAPI {
 
     // 글 삭제
     @Transactional
-    @DeleteMapping("/board")
+    @DeleteMapping("/board/remove")
     public void remove(@RequestBody Board board){
         log.info("[DELETE BoardAPI (/board)] BOARD : " + board);
 
         String bno = board.getCat_cd() + board.getB_dtt().format(DateTimeFormatter.ofPattern("yyMMddHHmmss.SSSSSS"));
-
         replyService.deleteByBno(board.getCat_cd(), board.getB_dtt());
-//        fileService.deleteFile(bno);
+        //        fileService.deleteFile(bno);
         boardService.deleteBoard(board.getB_dtt());
     }
 
-    // 글 조회수 증가
-    private void increaseVisit(LocalDateTime B_dtt) {
-        boardService.increaseVisit(B_dtt);
-    }
 }
 
 @Data

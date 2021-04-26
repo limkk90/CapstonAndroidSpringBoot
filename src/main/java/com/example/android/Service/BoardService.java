@@ -84,8 +84,5 @@ public class BoardService {
         boardMapper.deleteBoard(b_dtt);
     }
 
-    // 글 조회수 증가
-    public void increaseVisit(LocalDateTime b_dtt) {
-        boardMapper.increaseVisit(b_dtt);
-    }
+
 }

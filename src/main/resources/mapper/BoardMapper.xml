@@ -62,12 +62,7 @@
         where b_dtt = #{b_dtt}
     </update>
 
-    <delete id="deleteBoard" parameterType="String">
-        delete from board_tb where b_dtt = #{time}
+    <delete id="deleteBoard">
+        delete from board_tb where b_dtt = #{b_dtt}
     </delete>
-
-    <update id="increaseVisit">
-        update board_tb set b_visite = b_visite + 1
-        where b_dtt = #{b_dtt}
-    </update>
 </mapper>
