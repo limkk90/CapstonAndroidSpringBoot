@@ -1,5 +1,6 @@
 package com.example.android.Mapper;
 
+
 import com.example.android.Dto.Reply;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface ReplyMapper {
-    List<Reply> getReplyList(String b_dtt); // 게시물 댓글 목록
+    List<Reply> getReplyList(String bno); // 게시물 댓글 목록
 
     List<Reply> getMyReplyList(String u_id); // 내 댓글 목록
 
@@ -16,5 +17,7 @@ public interface ReplyMapper {
 
     void updateReply(Reply reply); // 댓글 수정
 
-    void deleteReply(LocalDateTime r_dtt); // 댓글 삭제
+    void deleteByRdtt(LocalDateTime r_dtt); // 댓글 삭제
+
+    void deleteByBno(String bno); // 게시물 삭제 시 댓글 삭제
 }

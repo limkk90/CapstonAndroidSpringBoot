@@ -1,9 +1,9 @@
 package com.example.android.Controller;
 
-
 import com.example.android.Dto.Board;
 import com.example.android.Dto.Reply;
 import com.example.android.Service.ReplyService;
+import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +27,19 @@ public class ReplyRestAPI {
         return replyService.getMyReplyList(u_id);
     }
 
+    // 댓글 작성
     @PostMapping("/reply")
-    public void insertReply(@RequestBody Board board, @RequestBody Reply reply) {
-        log.info("[POST ReplyAPI (/reply)] Board : " + board + ", REPLY : " + reply);
+    public void insertReply(@RequestBody requestReply requestReply) {
+        log.info("[POST ReplyAPI (/reply)] REQUEST_REPLY : " + requestReply);
+
+        Board board = new Board();
+        board.setCat_cd(requestReply.getCat_cd());
+        board.setB_dtt(requestReply.getB_dtt());
+
+        Reply reply = new Reply();
+        reply.setR_content(requestReply.getR_content());
+        reply.setR_writer(requestReply.getR_writer());
+
         replyService.insertReply(board, reply);
     }
 
@@ -44,6 +54,14 @@ public class ReplyRestAPI {
     @DeleteMapping("/reply")
     public void deleteReply(@RequestParam("r_dtt") LocalDateTime r_dtt) {
         log.info("[DELETE ReplyAPI (/reply)] R_DTT : " + r_dtt);
-        replyService.deleteReply(r_dtt);
+        replyService.deleteByRdtt(r_dtt);
     }
+}
+
+@Data
+class requestReply {
+    private char cat_cd;
+    private LocalDateTime b_dtt;
+    private String r_content;
+    private String r_writer;
 }

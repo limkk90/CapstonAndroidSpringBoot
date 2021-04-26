@@ -28,9 +28,14 @@ public class BoardService {
     }
 
     // 글 총 개수
-    public int boardListCnt(){
-        return boardMapper.boardListCnt();
+    public int boardListCnt(char cat_cd){
+        return boardMapper.boardListCnt(cat_cd);
     }
+
+    // 게시물 전체 리스트
+    public List<Board> getAllBoardList(){
+        return boardMapper.getAllBoardList();
+    };
 
     // 게시물 리스트 페이지네이션, 검색
     public List<Board> getBoardList(Criteria criteria) {

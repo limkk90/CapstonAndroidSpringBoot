@@ -14,7 +14,9 @@ public interface BoardMapper {
 
     List<Board> getMyBoardList(String u_id); // 활동내역 (내 게시글 리스트)
 
-    int boardListCnt(); //총 게시글 수
+    int boardListCnt(char cat_cd); //총 게시글 수
+
+    List<Board> getAllBoardList(); // 게시물 전체 리스트
 
     List<Board> getBoardList(Criteria criteria); // 게시글 리스트 (페이지네이션, 검색)
 

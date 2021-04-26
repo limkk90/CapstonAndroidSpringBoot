@@ -1,5 +1,6 @@
 package com.example.android.Dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,4 +13,9 @@ public class Reply {
     private String r_writer; // 작성자
     private Date r_dt; // 작성일
     private String b_no; // 글번호
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDateTime date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime time;
 }

@@ -16,18 +16,25 @@
 
     <select id="boardListCnt" resultType="int">
         select count(*) from board_tb
+        where cat_cd = #{cat_cd}
+    </select>
+
+    <select id="getAllBoardList" resultType="com.example.android.Dto.Board">
+        select * from board_tb
     </select>
 
     <select id="getBoardList" resultType="com.example.android.Dto.Board">
         select * from (select row_number() over (order by B_DTT desc) ronum,
-                              cat_cd, b_dtt, b_title, b_content, u_id from board_tb)
-        where ronum between #{rowStart} and #{rowEnd} and cat_cd = #{cat_cd}
+                              cat_cd, b_dtt, b_title, b_content, u_id
+                        from board_tb where cat_cd = #{cat_cd})
+        where ronum between #{rowStart} and #{rowEnd}
         order by B_DTT desc
     </select>
 
     <select id="getBoardListSearchTitle" resultType="com.example.android.Dto.Board">
         select * from (select row_number() over (order by B_DTT desc) ronum,
-                              cat_cd, b_dtt, b_title, b_content, u_id from board_tb where B_TITLE like '%' || #{keyWord} || '%')
+                              cat_cd, b_dtt, b_title, b_content, u_id
+                        from board_tb where B_TITLE like '%' || #{keyWord} || '%')
         where ronum between #{rowStart} and #{rowEnd} and cat_cd = #{cat_cd}
         order by B_DTT desc
     </select>
