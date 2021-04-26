@@ -41,7 +41,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                             "/api/update/{u_id}",
                             "/api/findId/{u_email}",
                             "/api/email",
-                            "/api/confirm"
+                            "/api/confirm",
+                            "/api/**"
                     ));
 
 
