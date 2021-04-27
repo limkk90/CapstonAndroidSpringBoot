@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.android.Mapper.BoardMapper">
+    <select id="getMainNotifyList" resultType="com.example.android.Dto.Board">
+         <![CDATA[select rownum, b.*
+         from (select * from board_tb b order by b_dtt desc) b
+         where cat_cd = 0 and rownum < 6]]>
+    </select>
+
+    <select id="getMyBoardList" resultType="com.example.android.Dto.Board">
+        select *
+        from board_tb
+        where u_id = #{u_id}
+    </select>
+
+    <select id="boardListCnt" resultType="int">
+        select count(*) from board_tb
+        where cat_cd = #{cat_cd}
+    </select>
+
+    <select id="getAllBoardList" resultType="com.example.android.Dto.Board">
+        select * from board_tb
+    </select>
+
+    <select id="getBoardList" resultType="com.example.android.Dto.Board">
+        select * from (select row_number() over (order by B_DTT desc) ronum,
+                              cat_cd, b_dtt, b_title, b_content, u_id
+                        from board_tb where cat_cd = #{cat_cd})
+        where ronum between #{rowStart} and #{rowEnd}
+        order by B_DTT desc
+    </select>
+
+    <select id="getBoardListSearchTitle" resultType="com.example.android.Dto.Board">
+        select * from (select row_number() over (order by B_DTT desc) ronum,
+                              cat_cd, b_dtt, b_title, b_content, u_id
+                        from board_tb where B_TITLE like '%' || #{keyWord} || '%')
+        where ronum between #{rowStart} and #{rowEnd} and cat_cd = #{cat_cd}
+        order by B_DTT desc
+    </select>
+
+    <select id="getBoardListSearchWriter" resultType="com.example.android.Dto.Board">
+        select * from (select row_number() over (order by B_DTT desc) ronum,
+                              cat_cd, b_dtt, b_title, b_content, u_id from board_tb where U_ID like '%' || #{keyWord} || '%')
+        where ronum between #{rowStart} and #{rowEnd} and cat_cd = #{cat_cd}
+        order by B_DTT desc
+    </select>
+
+    <select id="getBoard" resultType="com.example.android.Dto.Board">
+        select * from board_tb
+        where b_dtt = #{b_dtt}
+    </select>
+
+    <insert id="insertBoard">
+        insert into board_tb(CAT_CD, b_dtt, B_TITLE, B_CONTENT, U_ID)
+        values(#{cat_cd}, systimestamp , #{b_title},  #{b_content}, #{u_id})
+    </insert>
+
+    <update id="updateBoard">
+        update board_tb
+        set b_title = #{b_title}, b_content = #{b_content}, cat_cd = #{cat_cd}
+        where b_dtt = #{b_dtt}
+    </update>
+
+    <delete id="deleteBoard">
+        delete from board_tb where b_dtt = #{b_dtt}
+    </delete>
+</mapper>
