@@ -5,7 +5,7 @@
     <select id="getReplyList" resultType="com.example.android.Dto.Reply">
         select *
         from reply_tb
-        where b_no = #{bno}
+        where b_no = #{b_no}
     </select>
 
     <select id="getMyReplyList" resultType="com.example.android.Dto.Reply">
@@ -29,6 +29,6 @@
     </delete>
 
     <delete id="deleteByBno">
-        delete from reply_tb where b_no = #{bno}
+        delete from reply_tb where b_no = #{b_no}
     </delete>
 </mapper>

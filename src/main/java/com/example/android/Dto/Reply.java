@@ -11,7 +11,6 @@ public class Reply {
     private LocalDateTime r_dtt; // 댓글번호
     private String r_content; // 내용
     private String r_writer; // 작성자
-    private Date r_dt; // 작성일
     private String b_no; // 글번호
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")

@@ -44,17 +44,17 @@ public class ReplyRestAPI {
     }
 
     // 댓글 수정
-    @PatchMapping("/reply")
+    @PatchMapping("/reply/update")
     public void updateReply(@RequestBody Reply reply) {
         log.info("[PATCH ReplyAPI (/reply)] REPLY : " + reply);
         replyService.updateReply(reply);
     }
 
     // 댓글 삭제
-    @DeleteMapping("/reply")
-    public void deleteReply(@RequestParam("r_dtt") LocalDateTime r_dtt) {
-        log.info("[DELETE ReplyAPI (/reply)] R_DTT : " + r_dtt);
-        replyService.deleteByRdtt(r_dtt);
+    @DeleteMapping("/reply/remove")
+    public void deleteReply(@RequestBody Reply reply) {
+        log.info("[DELETE ReplyAPI (/reply)] R_DTT : " + reply.getR_dtt());
+        replyService.deleteByRdtt(reply.getR_dtt());
     }
 }
 
