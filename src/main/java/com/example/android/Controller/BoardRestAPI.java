@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,7 @@ public class BoardRestAPI {
 
     // 게시글 전체 리스트
     @GetMapping("/allboardlist")
-    public List<Board> getBoardList() {
+    public ArrayList<Board> getBoardList() {
         return boardService.getAllBoardList();
     }
 

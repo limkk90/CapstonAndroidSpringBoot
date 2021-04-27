@@ -6,6 +6,7 @@ import com.example.android.Dto.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -16,7 +17,7 @@ public interface BoardMapper {
 
     int boardListCnt(char cat_cd); //총 게시글 수
 
-    List<Board> getAllBoardList(); // 게시물 전체 리스트
+    ArrayList<Board> getAllBoardList(); // 게시물 전체 리스트
 
     List<Board> getBoardList(Criteria criteria); // 게시글 리스트 (페이지네이션, 검색)
 

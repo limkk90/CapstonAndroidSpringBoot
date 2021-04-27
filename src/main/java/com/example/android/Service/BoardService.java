@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +34,7 @@ public class BoardService {
     }
 
     // 게시물 전체 리스트
-    public List<Board> getAllBoardList(){
+    public ArrayList<Board> getAllBoardList(){
         return boardMapper.getAllBoardList();
     };
 
