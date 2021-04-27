@@ -46,6 +46,7 @@ public class UserRestAPI {
         return "성공";
     }
 
+
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody JwtRequest authenticationRequest) throws Exception {
