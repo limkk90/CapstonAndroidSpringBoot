@@ -64,6 +64,7 @@ public class BoardRestAPI {
     // 게시글 전체 리스트
     @GetMapping("/allboardlist")
     public ArrayList<Board> getBoardList() {
+
         return boardService.getAllBoardList();
     }
 
