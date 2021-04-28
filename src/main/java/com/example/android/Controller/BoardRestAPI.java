@@ -64,7 +64,11 @@ public class BoardRestAPI {
     // 게시글 전체 리스트
     @GetMapping("/allboardlist")
     public ArrayList<Board> getBoardList() {
+<<<<<<< HEAD
 
+=======
+        log.info("날라가냐???" + boardService.getAllBoardList());
+>>>>>>> 3bfc6bc8f13c01d3ffb3273fc795f9c79e3d7d3c
         return boardService.getAllBoardList();
     }
 
@@ -77,7 +81,7 @@ public class BoardRestAPI {
         List<Board> board = null;
         Map<String, Object> result = new HashMap<String, Object>();
 
-        Pagination pagination = new Pagination(boardService.boardListCnt(criteria.getCat_cd()), criteria.getPage(), 10);
+//        Pagination pagination = new Pagination(boardService.boardListCnt(criteria.getCat_cd()), criteria.getPage(), 10);
 
         switch (criteria.getSer()) {
             case'T':
@@ -90,7 +94,7 @@ public class BoardRestAPI {
                 board = boardService.getBoardList(criteria);
         }
 
-        result.put("pagination", pagination);
+//        result.put("pagination", pagination);
         result.put("boardList", board);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
