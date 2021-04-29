@@ -64,11 +64,7 @@ public class BoardRestAPI {
     // 게시글 전체 리스트
     @GetMapping("/allboardlist")
     public ArrayList<Board> getBoardList() {
-<<<<<<< HEAD
-
-=======
         log.info("날라가냐???" + boardService.getAllBoardList());
->>>>>>> 3bfc6bc8f13c01d3ffb3273fc795f9c79e3d7d3c
         return boardService.getAllBoardList();
     }
 
@@ -118,6 +114,10 @@ public class BoardRestAPI {
         result.put("replyList", reply);
 
         return result;
+    }
+    //지워야됨
+    public void test(){
+
     }
 
     // 글 작성
