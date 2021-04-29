@@ -50,7 +50,7 @@ public class Criteria {
         rowStart = ((page-1) * perPageNum) + 1;
         return rowStart;
     }
-//
+
     public int getRowEnd(){
         rowEnd = rowStart + perPageNum -1;
         return rowEnd;
