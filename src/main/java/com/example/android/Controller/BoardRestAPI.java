@@ -5,13 +5,10 @@ import com.example.android.Dto.Board;
 import com.example.android.Dto.Criteria;
 import com.example.android.Dto.Reply;
 import com.example.android.Service.BoardService;
-import com.example.android.Service.Pagination;
 import com.example.android.Service.ReplyService;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,11 +68,11 @@ public class BoardRestAPI {
     // 글 리스트 페이지네이션, 검색
     @Transactional
     @GetMapping("/boardlist")
-    public ResponseEntity<?> getBoardList(Criteria criteria){
-        log.info("[GET BoardAPI (/board/list)] CRITERIA : " + criteria);
+    public ArrayList<Board> getBoardList(Criteria criteria){
+//        log.info("[GET BoardAPI (/board/list)] CRITERIA : " + criteria);
 
-        List<Board> board = null;
-        Map<String, Object> result = new HashMap<String, Object>();
+        ArrayList<Board> board = null;
+//        Map<String, Object> result = new HashMap<String, Object>();
 
 //        Pagination pagination = new Pagination(boardService.boardListCnt(criteria.getCat_cd()), criteria.getPage(), 10);
 
@@ -91,9 +88,10 @@ public class BoardRestAPI {
         }
 
 //        result.put("pagination", pagination);
-        result.put("boardList", board);
+//        result.put("boardList", board);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        log.info("되는거야?????아아아아" + board);
+        return board;
     }
 
     // 글 조회

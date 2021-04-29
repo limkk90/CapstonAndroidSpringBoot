@@ -19,11 +19,11 @@ public interface BoardMapper {
 
     ArrayList<Board> getAllBoardList(); // 게시물 전체 리스트
 
-    List<Board> getBoardList(Criteria criteria); // 게시글 리스트 (페이지네이션, 검색)
+    ArrayList<Board> getBoardList(Criteria criteria); // 게시글 리스트 (페이지네이션, 검색)
 
-    List<Board> getBoardListSearchTitle(Criteria criteria); // 제목 검색
+    ArrayList<Board> getBoardListSearchTitle(Criteria criteria); // 제목 검색
 
-    List<Board> getBoardListSearchWriter(Criteria criteria); // 작성자 검색
+    ArrayList<Board> getBoardListSearchWriter(Criteria criteria); // 작성자 검색
 
     Board getBoard(LocalDateTime b_dtt); // 글 조회
 

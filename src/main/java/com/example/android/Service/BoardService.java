@@ -39,8 +39,8 @@ public class BoardService {
     };
 
     // 게시물 리스트 페이지네이션, 검색
-    public List<Board> getBoardList(Criteria criteria) {
-        List<Board> list = boardMapper.getBoardList(criteria);
+    public ArrayList<Board> getBoardList(Criteria criteria) {
+        ArrayList<Board> list = boardMapper.getBoardList(criteria);
 
         list.forEach(board -> {
             board.setDate(board.getB_dtt());
@@ -51,12 +51,12 @@ public class BoardService {
     }
 
     // 제목 검색
-    public List<Board> getBoardListSearchTitle(Criteria criteria) {
+    public ArrayList<Board> getBoardListSearchTitle(Criteria criteria) {
         return boardMapper.getBoardListSearchTitle(criteria);
     }
 
     // 작성자 검색
-    public List<Board> getBoardListSearchWriter(Criteria criteria) {
+    public ArrayList<Board> getBoardListSearchWriter(Criteria criteria) {
         return boardMapper.getBoardListSearchWriter(criteria);
     }
 
