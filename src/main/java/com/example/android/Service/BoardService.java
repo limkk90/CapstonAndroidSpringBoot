@@ -61,13 +61,18 @@ public class BoardService {
     }
 
     // 글 조회
-    public Board getBoard(LocalDateTime b_dtt) {
-        Board board = boardMapper.getBoard(b_dtt);
+    public ArrayList<Board> getBoard(LocalDateTime b_dtt) {
+        ArrayList<Board> list = boardMapper.getBoard(b_dtt);
 
-        board.setDate(board.getB_dtt());
-        board.setTime(board.getB_dtt());
 
-        return board;
+        list.forEach(board -> {
+            board.setDate(board.getB_dtt());
+            board.setTime(board.getB_dtt());
+        });
+//        board.setDate(board.getB_dtt());
+//        board.setTime(board.getB_dtt());
+
+        return list;
     }
 
     // 글 작성
