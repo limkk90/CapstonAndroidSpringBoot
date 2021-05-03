@@ -64,7 +64,6 @@ public class BoardService {
     public ArrayList<Board> getBoard(LocalDateTime b_dtt) {
         ArrayList<Board> list = boardMapper.getBoard(b_dtt);
 
-
         list.forEach(board -> {
             board.setDate(board.getB_dtt());
             board.setTime(board.getB_dtt());
