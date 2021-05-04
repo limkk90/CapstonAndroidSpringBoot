@@ -6,6 +6,7 @@ import com.example.android.Mapper.MapMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,7 +15,7 @@ public class MapService {
     private MapMapper mapMapper;
 
     // 메인페이지 마커 리스트
-    public List<Marker> getMarkerList() {
+    public ArrayList<Marker> getMarkerList() {
         return mapMapper.getMarkerList();
     }
 }

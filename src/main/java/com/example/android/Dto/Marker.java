@@ -6,4 +6,5 @@ import lombok.Data;
 public class Marker {
     private String stat_lng;
     private String stat_lat;
+    private String stat_nm;
 }
