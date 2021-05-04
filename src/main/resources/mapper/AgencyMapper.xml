@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.android.Mapper.AgencyMapper">
+    <select id="AgencyList" resultType="com.example.android.Dto.Agency">
+        select * from (select row_number() over (order by agcy_up_dtt desc) ronum,
+                              agcy_id, agcy_nm, agcy_bs_r, agcy_fee, agcy_dc, agcy_logo, agcy_up_dtt from agency_tb)
+        where ronum between #{rowStart} and #{rowEnd}
+        order by agcy_up_dtt desc
+    </select>
+
+    <select id="readAgency" parameterType="String" resultType="com.example.android.Dto.Agency">
+        select * from agency_tb
+        where agcy_id = #{agcy_id}
+    </select>
+
+    <insert id="insertAgency">
+        insert into agency_tb
+        values(#{agcy_id}, #{agcy_nm}, #{agcy_bs_r}, #{agcy_fee}, #{agcy_dc}, null, systimestamp)
+    </insert>
+
+    <update id="updateAgency">
+        update agency_tb set agcy_nm= #{agcy_nm} ,agcy_bs_r= #{agcy_bs_r}, agcy_fee= #{agcy_fee}, agcy_dc= #{agcy_dc}
+        where agcy_id = #{agcy_id}
+    </update>
+
+    <delete id="deleteAgency" parameterType="String">
+        delete from agency_tb where agcy_id = #{agcy_id}
+    </delete>
+
+    <select id="agencyListCnt" resultType="int">
+        select count(*) from agency_tb
+    </select>
+</mapper>

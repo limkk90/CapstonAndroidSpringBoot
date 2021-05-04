@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.android.Mapper.ChargerMapper">
+    <select id="getChargerList" resultType="com.example.android.Dto.Charger">
+        select *
+        from charger_tb
+        where  stat_id = #{stat_id}
+    </select>
+
+    <insert id="insertCH">
+        insert into charger_tb
+        values (#{chg_id}, #{chg_type}, #{chg_method}, #{chg_st}, #{chg_st_dt}, #{chg_rsvt}, #{agcy_id}, #{stat_id});
+    </insert>
+</mapper>

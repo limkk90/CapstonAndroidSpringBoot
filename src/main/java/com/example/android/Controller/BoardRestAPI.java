@@ -97,26 +97,25 @@ public class BoardRestAPI {
     // 글 조회
     @Transactional
     @PostMapping("/gboard")
-    public Map<String, Object> getBoard(@RequestBody boardInfo boardInfo){
-        log.info("[POST BoardAPI (/gboard)] CRITERIA : " + boardInfo.getCriteria());
-        log.info("[POST BoardAPI (/gboard)] B_DTT : " + boardInfo.getB_dtt());
+    public ArrayList<Board> getBoard(@RequestBody boardInfo boardInfo){
+//        log.info("[POST BoardAPI (/gboard)] CRITERIA : " + boardInfo.getCriteria());
+//        log.info("[POST BoardAPI (/gboard)] B_DTT : " + board.getB_dtt());
 
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("page", boardInfo.getCriteria());
+//        Map<String, Object> result = new HashMap<String, Object>();
+//        result.put("page", boardInfo.getCriteria());
 
-        Board board = boardService.getBoard(boardInfo.getB_dtt());
-        result.put("board", board);
+        ArrayList<Board> board = null;
+        board = boardService.getBoard(boardInfo.getB_dtt());
+//        result.put("board", board);
 
-        List<Reply> reply = replyService.getReplyList(board.getCat_cd(), board.getB_dtt());
-        log.info(reply);
-        result.put("replyList", reply);
+//        List<Reply> reply = replyService.getReplyList(board.getCat_cd(), board.getB_dtt());
+//        log.info(reply);
+//        result.put("replyList", reply);
 
-        return result;
+        return board;
+//        return result;
     }
-    //지워야됨
-    public void test(){
 
-    }
 
     // 글 작성
     @PostMapping("/board/make")
