@@ -120,10 +120,11 @@ public class BoardRestAPI {
 
     // 글 작성
     @PostMapping("/board/make")
-    public void registerPost(@RequestBody Board board){
+    public String registerPost(@RequestBody Board board){
         log.info("[POST BoardAPI (/board)] BOARD : " + board);
 
         boardService.register(board);
+        return "성공";
     }
 
     // 글 수정
