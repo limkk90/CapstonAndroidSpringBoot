@@ -26,6 +26,10 @@ public class MapRestAPI {
     @GetMapping("/marker")
     public ArrayList<Marker> getMarkerList() {
         ArrayList<Marker> markerlist = mapService.getMarkerList();
+<<<<<<< HEAD
+=======
+        log.info("되는기니" + markerlist);
+>>>>>>> 997ac2cc128a20454f87b70c3746e23556e1b3f5
         return markerlist;
     }
 }
