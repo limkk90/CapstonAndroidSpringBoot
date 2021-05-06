@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,8 +24,8 @@ public class MapRestAPI {
 
     // 웹 메인페이지 지도 마커 리스트
     @GetMapping("/marker")
-    public List<Marker> getMarkerList() {
-        List<Marker> markerlist = mapService.getMarkerList();
+    public ArrayList<Marker> getMarkerList() {
+        ArrayList<Marker> markerlist = mapService.getMarkerList();
         return markerlist;
     }
 }
