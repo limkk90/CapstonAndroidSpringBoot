@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,8 +36,10 @@ public class ReplyService {
     // 게시물 댓글 리스트
     public List<Reply> getReplyList(char cat_cd, LocalDateTime b_dtt) {
         String b_no = getBno(cat_cd, b_dtt);
+        List<Reply> list = new ArrayList<>();
 
-        return setDT(replyMapper.getReplyList(b_no));
+        list = setDT(replyMapper.getReplyList(b_no));
+        return list;
     }
 
     // 내 댓글 리스트

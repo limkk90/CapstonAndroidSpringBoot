@@ -13,11 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Log4j2
@@ -90,29 +87,32 @@ public class BoardRestAPI {
 //        result.put("pagination", pagination);
 //        result.put("boardList", board);
 
-        log.info("되는거야?????아아아아" + board);
+//        log.info("되는거야?????아아아아" + board);
         return board;
     }
 
     // 글 조회
     @Transactional
     @PostMapping("/gboard")
-    public ArrayList<Board> getBoard(@RequestBody boardInfo boardInfo){
+    public List<Object> getBoard(@RequestBody boardInfo boardInfo){
 //        log.info("[POST BoardAPI (/gboard)] CRITERIA : " + boardInfo.getCriteria());
 //        log.info("[POST BoardAPI (/gboard)] B_DTT : " + board.getB_dtt());
 
 //        Map<String, Object> result = new HashMap<String, Object>();
 //        result.put("page", boardInfo.getCriteria());
 
-        ArrayList<Board> board = null;
-        board = boardService.getBoard(boardInfo.getB_dtt());
+        List<Object> list = new ArrayList<>();
+
+        Board board = boardService.getBoard(boardInfo.getB_dtt());
+        list.add(board);
 //        result.put("board", board);
 
-//        List<Reply> reply = replyService.getReplyList(board.getCat_cd(), board.getB_dtt());
+        List<Reply> reply = replyService.getReplyList(board.getCat_cd(), board.getB_dtt());
+        list.add(reply);
 //        log.info(reply);
 //        result.put("replyList", reply);
-
-        return board;
+        log.info("list값 확인" + list);
+        return list;
 //        return result;
     }
 
@@ -136,12 +136,12 @@ public class BoardRestAPI {
 
     // 글 삭제
     @Transactional
-    @DeleteMapping("/board/remove")
+    @PostMapping("/board/remove")
     public void remove(@RequestBody Board board){
         log.info("[DELETE BoardAPI (/board)] BOARD : " + board);
 
-        String bno = board.getCat_cd() + board.getB_dtt().format(DateTimeFormatter.ofPattern("yyMMddHHmmss.SSSSSS"));
-        replyService.deleteByBno(board.getCat_cd(), board.getB_dtt());
+//        String bno = board.getCat_cd() + board.getB_dtt().format(DateTimeFormatter.ofPattern("yyMMddHHmmss.SSSSSS"));
+//        replyService.deleteByBno(board.getCat_cd(), board.getB_dtt());
         //        fileService.deleteFile(bno);
         boardService.deleteBoard(board.getB_dtt());
     }

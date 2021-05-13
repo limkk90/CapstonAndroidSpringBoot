@@ -53,7 +53,7 @@
 
     <insert id="insertBoard">
         insert into board_tb(CAT_CD, b_dtt, B_TITLE, B_CONTENT, U_ID)
-        values(#{cat_cd}, systimestamp , #{b_title},  #{b_content}, 'aaaaa')
+        values(#{cat_cd}, systimestamp , #{b_title},  #{b_content}, #{u_id})
     </insert>
 
     <update id="updateBoard">

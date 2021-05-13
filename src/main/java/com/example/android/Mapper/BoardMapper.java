@@ -25,7 +25,7 @@ public interface BoardMapper {
 
     ArrayList<Board> getBoardListSearchWriter(Criteria criteria); // 작성자 검색
 
-    ArrayList<Board> getBoard(LocalDateTime b_dtt); // 글 조회
+    Board getBoard(LocalDateTime b_dtt); // 글 조회
 
     void insertBoard(Board board); // 글 작성
 
