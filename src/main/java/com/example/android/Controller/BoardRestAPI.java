@@ -95,11 +95,6 @@ public class BoardRestAPI {
     @Transactional
     @PostMapping("/gboard")
     public List<Object> getBoard(@RequestBody boardInfo boardInfo){
-//        log.info("[POST BoardAPI (/gboard)] CRITERIA : " + boardInfo.getCriteria());
-//        log.info("[POST BoardAPI (/gboard)] B_DTT : " + board.getB_dtt());
-
-//        Map<String, Object> result = new HashMap<String, Object>();
-//        result.put("page", boardInfo.getCriteria());
 
         List<Object> list = new ArrayList<>();
 
