@@ -13,7 +13,7 @@ import java.util.List;
 public interface BoardMapper {
     List<Board> getMainNotifyList(); // 메인페이지 뉴스 리스트
 
-    List<Board> getMyBoardList(String u_id); // 활동내역 (내 게시글 리스트)
+    ArrayList<Board> getMyBoardList(String u_id); // 활동내역 (내 게시글 리스트)
 
     int boardListCnt(char cat_cd); //총 게시글 수
 
@@ -25,13 +25,13 @@ public interface BoardMapper {
 
     ArrayList<Board> getBoardListSearchWriter(Criteria criteria); // 작성자 검색
 
-    Board getBoard(LocalDateTime b_dtt); // 글 조회
+    Board getBoard(int b_no); // 글 조회
 
     void insertBoard(Board board); // 글 작성
 
     void updateBoard(Board board); // 글 수정
 
-    void deleteBoard(LocalDateTime b_dtt); // 글 삭제
+    void deleteBoard(int b_no); // 글 삭제
 
-    void increaseVisit(LocalDateTime b_dtt); // 글 조회수 증가
+    void increaseVisit(int b_no); // 글 조회수 증가
 }

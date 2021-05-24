@@ -1,20 +1,19 @@
 package com.example.android.Controller;
 
 
-import com.example.android.Dto.Email;
-import com.example.android.Dto.User;
+import com.example.android.Dto.*;
 import com.example.android.Service.EmailService;
 import com.example.android.Service.JwtUserDetailsService;
 import com.example.android.Service.UserService;
 import com.example.android.config.JwtTokenUtil;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Log4j2
@@ -38,6 +37,7 @@ public class UserRestAPI {
     private EmailService emailService;
 
 
+    // 회원가입
     @PostMapping("/join")
     public String join(@RequestBody User user) {
         log.info("[POST UserAPI (/join)] User: " + user);
@@ -51,13 +51,18 @@ public class UserRestAPI {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody JwtRequest authenticationRequest) throws Exception {
         log.info("[POST UserAPI (/login)] JwtRequest: " + authenticationRequest);
+        Map<String, Object> result = new HashMap<>();
+
         final User user = userDetailService.authenticateByEmailAndPassword
                 (authenticationRequest.getU_id(), authenticationRequest.getU_pwd());
         final String token = jwtTokenUtil.generateToken(user.getU_id());
-        log.info("token = " + ResponseEntity.ok(new JwtResponse(token)).getBody());
 
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        result.put("token", "Bearer " + token);
+        result.put("userId", user.getU_id());
+        result.put("userPoint", user.getU_point());
+
+        return ResponseEntity.ok(result);
     }
 
     // android 로그인
@@ -68,8 +73,6 @@ public class UserRestAPI {
                 (authenticationRequest.getU_id(), authenticationRequest.getU_pwd());
         final String token = jwtTokenUtil.generateToken(user.getU_id());
         log.info("token = " + ResponseEntity.ok(new JwtResponse(token)).getBody());
-//        log.info();
-
         return ResponseEntity.ok(new JwtResponse(token)).getBody().getToken();
     }
 
@@ -119,14 +122,3 @@ public class UserRestAPI {
 
 }
 
-@Data
-class JwtRequest {
-    private String u_id;
-    private String u_pwd;
-}
-
-@Data
-@AllArgsConstructor
-class JwtResponse {
-    private String token;
-}

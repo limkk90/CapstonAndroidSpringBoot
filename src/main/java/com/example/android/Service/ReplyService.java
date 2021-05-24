@@ -20,10 +20,6 @@ public class ReplyService {
     @Autowired(required = false)
     private ReplyMapper replyMapper;
 
-    private String getBno(char cat_cd, LocalDateTime b_dtt) {
-        return cat_cd + b_dtt.format(DateTimeFormatter.ofPattern("yyMMddHHmmss.SSSSSS"));
-    }
-
     private List<Reply> setDT(List<Reply> list) {
         list.forEach(reply -> {
             reply.setDate(reply.getR_dtt());
@@ -34,12 +30,8 @@ public class ReplyService {
     }
 
     // 게시물 댓글 리스트
-    public List<Reply> getReplyList(char cat_cd, LocalDateTime b_dtt) {
-        String b_no = getBno(cat_cd, b_dtt);
-        List<Reply> list = new ArrayList<>();
-
-        list = setDT(replyMapper.getReplyList(b_no));
-        return list;
+    public List<Reply> getReplyList(int b_no) {
+        return setDT(replyMapper.getReplyList(b_no));
     }
 
     // 내 댓글 리스트
@@ -49,8 +41,7 @@ public class ReplyService {
     }
 
     // 댓글 작성
-    public void insertReply(Board board, Reply reply) {
-        reply.setB_no(getBno(board.getCat_cd(), board.getB_dtt()));
+    public void insertReply(Reply reply) {
         replyMapper.insertReply(reply);
     }
 
@@ -61,11 +52,11 @@ public class ReplyService {
 
     // 댓글 삭제
     public void deleteByRdtt(LocalDateTime r_dtt) {
-       replyMapper.deleteByRdtt(r_dtt);
+        replyMapper.deleteByRdtt(r_dtt);
     }
 
-    public void deleteByBno(char cat_cd, LocalDateTime b_dtt) {
-        String bno = getBno(cat_cd, b_dtt);
-        replyMapper.deleteByBno(bno);
+    public void deleteByBno(int b_no) {
+        replyMapper.deleteByBno(b_no);
     }
+
 }

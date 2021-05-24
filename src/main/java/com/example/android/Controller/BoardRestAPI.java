@@ -5,7 +5,9 @@ import com.example.android.Dto.Board;
 import com.example.android.Dto.Criteria;
 import com.example.android.Dto.Reply;
 import com.example.android.Service.BoardService;
+import com.example.android.Service.NaverApiService;
 import com.example.android.Service.ReplyService;
+import com.example.android.Service.UserService;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Log4j2
@@ -30,16 +34,18 @@ public class BoardRestAPI {
 
 //    @Autowired
 //    private FileService fileService;
-//
-//    @Autowired
-//    private NaverApiService naverApiService;
 
-//    // 메인페이지 뉴스목록 5개
-//    @GetMapping("/main/news")
-//    public String news(@RequestBody HashMap<String, Integer> start) {
-//        log.info("[GET BoardAPI (/main/news)] START : " + start.get("start"));
-//        return naverApiService.getNaverNews(start.get("start"));
-//    }
+    @Autowired
+    private NaverApiService naverApiService;
+
+
+
+    // 메인페이지 뉴스목록 5개
+    @GetMapping("/main/news")
+    public String news() {
+        log.info("[GET BoardAPI (/main/news)]");
+        return naverApiService.getNaverNews();
+    }
 
     // 메인페이지 공지사항목록 5개
     @GetMapping("/main/notify")
@@ -58,7 +64,6 @@ public class BoardRestAPI {
     // 게시글 전체 리스트
     @GetMapping("/allboardlist")
     public ArrayList<Board> getBoardList() {
-        log.info("날라가냐???" + boardService.getAllBoardList());
         return boardService.getAllBoardList();
     }
 
@@ -66,12 +71,8 @@ public class BoardRestAPI {
     @Transactional
     @GetMapping("/boardlist")
     public ArrayList<Board> getBoardList(Criteria criteria){
-//        log.info("[GET BoardAPI (/board/list)] CRITERIA : " + criteria);
 
         ArrayList<Board> board = null;
-//        Map<String, Object> result = new HashMap<String, Object>();
-
-//        Pagination pagination = new Pagination(boardService.boardListCnt(criteria.getCat_cd()), criteria.getPage(), 10);
 
         switch (criteria.getSer()) {
             case'T':
@@ -84,31 +85,22 @@ public class BoardRestAPI {
                 board = boardService.getBoardList(criteria);
         }
 
-//        result.put("pagination", pagination);
-//        result.put("boardList", board);
-
-//        log.info("되는거야?????아아아아" + board);
         return board;
     }
 
     // 글 조회
     @Transactional
-    @PostMapping("/gboard")
-    public List<Object> getBoard(@RequestBody boardInfo boardInfo){
+    @PostMapping("/board/{b_no}")
+    public Map<String, Object> getBoard(@PathVariable("b_no") int b_no){
+        log.info("[GET BoardAPI (/board/{b_no})] B_NO : " + b_no);
 
-        List<Object> list = new ArrayList<>();
+        boardService.increaseVisit(b_no);
 
-        Board board = boardService.getBoard(boardInfo.getB_dtt());
-        list.add(board);
-//        result.put("board", board);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("board", boardService.getBoard(b_no));
+        result.put("replyList", replyService.getReplyList(b_no));
 
-        List<Reply> reply = replyService.getReplyList(board.getCat_cd(), board.getB_dtt());
-        list.add(reply);
-//        log.info(reply);
-//        result.put("replyList", reply);
-        log.info("list값 확인" + list);
-        return list;
-//        return result;
+        return result;
     }
 
 
@@ -118,6 +110,7 @@ public class BoardRestAPI {
         log.info("[POST BoardAPI (/board)] BOARD : " + board);
 
         boardService.register(board);
+//        fileService.uploadFile(board.getFile(), board.getB_no());
         return "성공";
     }
 
@@ -135,16 +128,9 @@ public class BoardRestAPI {
     public void remove(@RequestBody Board board){
         log.info("[DELETE BoardAPI (/board)] BOARD : " + board);
 
-//        String bno = board.getCat_cd() + board.getB_dtt().format(DateTimeFormatter.ofPattern("yyMMddHHmmss.SSSSSS"));
-//        replyService.deleteByBno(board.getCat_cd(), board.getB_dtt());
-        //        fileService.deleteFile(bno);
-        boardService.deleteBoard(board.getB_dtt());
+//        replyService.deleteByBno(board.getB_no());
+//        fileService.deleteFile(board.getB_no());
+        boardService.deleteBoard(board.getB_no());
     }
 
-}
-
-@Data
-class boardInfo{
-    private Criteria criteria;
-    private LocalDateTime b_dtt;
 }

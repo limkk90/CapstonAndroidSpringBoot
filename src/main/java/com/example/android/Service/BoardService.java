@@ -25,7 +25,14 @@ public class BoardService {
 
     // 활동내역 (게시글 리스트)
     public List<Board> getMyBoardList(String u_id) {
-        return boardMapper.getMyBoardList(u_id);
+        ArrayList<Board> list = boardMapper.getMyBoardList(u_id);
+
+        list.forEach(board -> {
+            board.setDate(board.getB_dtt());
+            board.setTime(board.getB_dtt());
+        });
+
+        return list;
     }
 
     // 글 총 개수
@@ -61,13 +68,11 @@ public class BoardService {
     }
 
     // 글 조회
-    public Board getBoard(LocalDateTime b_dtt) {
-        Board board = boardMapper.getBoard(b_dtt);
+    public Board getBoard(int b_no) {
+        Board board = boardMapper.getBoard(b_no);
 
         board.setDate(board.getB_dtt());
         board.setTime(board.getB_dtt());
-//        board.setDate(board.getB_dtt());
-//        board.setTime(board.getB_dtt());
 
         return board;
     }
@@ -83,9 +88,13 @@ public class BoardService {
     }
 
     // 글 삭제
-    public void deleteBoard(LocalDateTime b_dtt) {
-        boardMapper.deleteBoard(b_dtt);
+    public void deleteBoard(int b_no) {
+        boardMapper.deleteBoard(b_no);
     }
 
+    // 글 조회수 증가
+    public void increaseVisit(int b_no) {
+        boardMapper.increaseVisit(b_no);
+    }
 
 }

@@ -4,8 +4,8 @@
 <mapper namespace="com.example.android.Mapper.UserMapper">
     <!--    회원가입-->
     <insert id="join">
-        insert into user_tb(u_id, u_email, u_pwd, u_phone, u_reg_dt)
-        values(#{u_id}, #{u_email}, #{u_pwd}, #{u_phone}, sysdate)
+        insert into user_tb(u_id, u_email, u_pwd, u_point, u_reg_dt)
+        values(#{u_id}, #{u_email}, #{u_pwd}, #{u_point}, sysdate)
     </insert>
 
     <!--    로그인-->
@@ -21,7 +21,7 @@
         set u_pwd= #{u_pwd}
         where u_id =#{u_id}
     </update>
-    <!-- asdfasdfasdfasdfasdf-->
+
     <!--    회원정보 찾기-->
     <select id="getProfile" resultType="com.example.android.Dto.User">
         select *
@@ -35,6 +35,19 @@
         from user_tb
         where u_id = #{u_id}
     </select>
+
+    <!--    유저 포인트 조회-->
+    <select id="getPoint" resultType="Integer">
+        select u_point
+        from user_tb
+        where u_id = #{u_id}
+    </select>
+
+    <!--    유저 포인트 수정-->
+    <update id="updatePoint">
+        update user_tb set u_point = #{point}
+        where u_id = #{u_id}
+    </update>
 
     <!--    아이디 찾기-->
     <select id="FindUser" resultType="com.example.android.Dto.User">

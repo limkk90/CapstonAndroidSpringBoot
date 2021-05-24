@@ -6,9 +6,11 @@ import java.util.Date;
 
 @Data
 public class User {
-    private String u_id;
-    private String u_email;
-    private String u_pwd;
-    private String u_phone;
-    private Date u_reg_dt;
+    private String u_id; // 아이디 (아이디 15 + 권한 1)
+    private String u_email; // 이메일
+    private String u_pwd; // 비밀번호
+    private String u_car;
+    private String u_s_car;
+    private int u_point;
+    private Date u_reg_dt; // 가입일
 }

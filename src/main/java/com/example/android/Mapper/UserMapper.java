@@ -17,7 +17,11 @@ public interface UserMapper {
 
     User getProfile(String u_id); // 회원정보 조회
 
-    User FindUser(String email);
+    User FindUser(String email); // 아이디 찾기
+
+    int getPoint(String u_id); // 포인트 조회
+
+    void updatePoint(String u_id, int point); // 포인트 수정
 
     Optional<User> getUser(String u_id); // JWT
 

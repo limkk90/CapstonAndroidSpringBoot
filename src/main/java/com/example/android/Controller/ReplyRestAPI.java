@@ -29,39 +29,23 @@ public class ReplyRestAPI {
 
     // 댓글 작성
     @PostMapping("/reply")
-    public void insertReply(@RequestBody requestReply requestReply) {
-        log.info("[POST ReplyAPI (/reply)] REQUEST_REPLY : " + requestReply);
+    public void insertReply(@RequestBody Reply reply) {
+        log.info("[POST ReplyAPI (/reply)] REPLY : " + reply);
 
-        Board board = new Board();
-        board.setCat_cd(requestReply.getCat_cd());
-        board.setB_dtt(requestReply.getB_dtt());
-
-        Reply reply = new Reply();
-        reply.setR_content(requestReply.getR_content());
-        reply.setR_writer(requestReply.getR_writer());
-
-        replyService.insertReply(board, reply);
+        replyService.insertReply(reply);
     }
 
     // 댓글 수정
-    @PatchMapping("/reply/update")
+    @PatchMapping("/reply")
     public void updateReply(@RequestBody Reply reply) {
         log.info("[PATCH ReplyAPI (/reply)] REPLY : " + reply);
         replyService.updateReply(reply);
     }
 
     // 댓글 삭제
-    @DeleteMapping("/reply/remove")
+    @DeleteMapping("/reply")
     public void deleteReply(@RequestBody Reply reply) {
         log.info("[DELETE ReplyAPI (/reply)] R_DTT : " + reply.getR_dtt());
         replyService.deleteByRdtt(reply.getR_dtt());
     }
-}
-
-@Data
-class requestReply {
-    private char cat_cd;
-    private LocalDateTime b_dtt;
-    private String r_content;
-    private String r_writer;
 }
