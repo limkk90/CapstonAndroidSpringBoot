@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper
 public interface BoardMapper {
-    List<Board> getMainNotifyList(); // 메인페이지 뉴스 리스트
+    ArrayList<Board> getMainNotifyList(); // 메인페이지 뉴스 리스트
 
     ArrayList<Board> getMyBoardList(String u_id); // 활동내역 (내 게시글 리스트)
 

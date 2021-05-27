@@ -19,7 +19,7 @@ public class BoardService {
     private BoardMapper boardMapper;
 
     // 메인페이지 공지사항 리스트
-    public List<Board> getMainNotifyList() {
+    public ArrayList<Board> getMainNotifyList() {
         return boardMapper.getMainNotifyList();
     }
 

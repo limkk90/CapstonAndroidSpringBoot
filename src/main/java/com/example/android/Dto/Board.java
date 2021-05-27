@@ -16,7 +16,7 @@ public class Board {
     private LocalDateTime b_dtt;
     private String u_id;
 
-    private MultipartFile[] file;
+//    private MultipartFile[] file;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDateTime date;
