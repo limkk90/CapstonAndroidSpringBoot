@@ -31,7 +31,7 @@ public class ReplyRestAPI {
     @PostMapping("/reply")
     public void insertReply(@RequestBody Reply reply) {
         log.info("[POST ReplyAPI (/reply)] REPLY : " + reply);
-
+        log.info("리플라이:" + reply);
         replyService.insertReply(reply);
     }
 

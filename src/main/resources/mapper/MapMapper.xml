@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.android.Mapper.MapMapper">
     <select id="getMarkerList" resultType="com.example.android.Dto.Marker">
-        select stat_lng, stat_lat, stat_nm
+        select stat_id, stat_lng, stat_lat, stat_nm, stat_addr
         from station_tb
     </select>
 </mapper>

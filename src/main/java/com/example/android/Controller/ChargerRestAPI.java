@@ -22,6 +22,8 @@ public class ChargerRestAPI {
     // 특정 충전소 충전기 리스트
     @GetMapping("/{stat_id}/chargerlist")
     public List<Charger> getChargerList(@PathVariable("stat_id") String stat_id){
+        log.info("getChargerListId:" + stat_id);
+        log.info("getChargerList:" + chargerService.getChargerList(stat_id));
         return chargerService.getChargerList(stat_id);
     };
 
