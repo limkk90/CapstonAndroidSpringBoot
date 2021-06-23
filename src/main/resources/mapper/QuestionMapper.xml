@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.android.Mapper.QuestionMapper">
+    <select id="getQuestionList" resultType="com.example.android.Dto.Question">
+        select *
+        from question_tb
+    </select>
+
+    <select id="getQuestion" resultType="com.example.android.Dto.Question">
+        select *
+        from question_tb
+        where q_dtt = #{q_dtt}
+    </select>
+
+    <select id="getMyQuestionList" resultType="com.example.android.Dto.Question">
+        select q_dtt, q_content, q_cat, u_id, q_title
+        from question_tb
+        where u_id = #{u_id}
+    </select>
+
+    <insert id="insertQuestion">
+        insert into question_tb values (systimestamp, #{q_cat}, #{q_title}, #{q_content}, #{u_id})
+    </insert>
+
+    <update id="updateQuestion">
+        update question_tb
+        set q_content = #{q_content}, q_cat = #{q_cat}, q_title = #{q_title}
+        where q_dtt = #{q_dtt}
+    </update>
+</mapper>

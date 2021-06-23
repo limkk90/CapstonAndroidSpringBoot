@@ -29,10 +29,11 @@ public class ReplyRestAPI {
 
     // 댓글 작성
     @PostMapping("/reply")
-    public void insertReply(@RequestBody Reply reply) {
+    public String insertReply(@RequestBody Reply reply) {
         log.info("[POST ReplyAPI (/reply)] REPLY : " + reply);
 
         replyService.insertReply(reply);
+        return "성공";
     }
 
     // 댓글 수정
@@ -43,7 +44,7 @@ public class ReplyRestAPI {
     }
 
     // 댓글 삭제
-    @DeleteMapping("/reply")
+    @PostMapping("/reply/delete")
     public void deleteReply(@RequestBody Reply reply) {
         log.info("[DELETE ReplyAPI (/reply)] R_DTT : " + reply.getR_dtt());
         replyService.deleteByRdtt(reply.getR_dtt());
