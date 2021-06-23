@@ -19,6 +19,8 @@
         values(systimestamp, #{r_content}, #{r_writer}, #{b_no})
     </insert>
 
+
+
     <update id="updateReply">
         update reply_tb set R_CONTENT=#{r_content}
         where R_DTT = #{r_dtt}

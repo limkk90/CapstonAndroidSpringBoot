@@ -43,9 +43,9 @@ public class ReplyRestAPI {
     }
 
     // 댓글 삭제
-    @DeleteMapping("/reply")
-    public void deleteReply(@RequestBody Reply reply) {
-        log.info("[DELETE ReplyAPI (/reply)] R_DTT : " + reply.getR_dtt());
-        replyService.deleteByRdtt(reply.getR_dtt());
+    @PostMapping("/reply/remove")
+    public void deleteReply(@RequestBody String r_dtt) {
+        log.info("[DELETE ReplyAPI (/reply)] R_DTT : " + r_dtt);
+//        replyService.deleteByRdtt(reply.getR_dtt());
     }
 }

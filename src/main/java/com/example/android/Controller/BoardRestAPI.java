@@ -93,6 +93,8 @@ public class BoardRestAPI {
     @PostMapping("/board/{b_no}")
     public Map<String, Object> getBoard(@PathVariable("b_no") int b_no){
         log.info("[GET BoardAPI (/board/{b_no})] B_NO : " + b_no);
+
+        log.info("[GET BoardAPI (/board/{b_no})] B_NO : " + boardService.getBoard(b_no));
         boardService.increaseVisit(b_no);
 
         Map<String, Object> result = new HashMap<String, Object>();
