@@ -23,7 +23,6 @@ import java.util.Map;
 
 @Log4j2
 @RestController
-@ResponseBody
 @RequestMapping("/api")
 public class BoardRestAPI {
     @Autowired
@@ -38,9 +37,7 @@ public class BoardRestAPI {
     @Autowired
     private NaverApiService naverApiService;
 
-
-
-    // 메인페이지 뉴스목록 5개
+    // 메인페이지 뉴스목록 10개
     @GetMapping("/main/news")
     public String news() {
         log.info("[GET BoardAPI (/main/news)]");
@@ -48,13 +45,15 @@ public class BoardRestAPI {
     }
 
     // 메인페이지 공지사항목록 5개
+    @ResponseBody
     @GetMapping("/main/notify")
-    public List<Board> MainNotifyList() {
+    public ArrayList<Board> MainNotifyList() {
         log.info("[GET BoardAPI (/main/notify)]");
         return boardService.getMainNotifyList();
     }
 
     // 내 게시글 리스트
+    @ResponseBody
     @GetMapping("/{u_id}/boardlist")
     public List<Board> myBoardList(@PathVariable String u_id) {
         log.info("[GET BoardAPI (/{u_id}/boardlist)] USER_ID: " + u_id);
@@ -62,12 +61,14 @@ public class BoardRestAPI {
     }
 
     // 게시글 전체 리스트
+    @ResponseBody
     @GetMapping("/allboardlist")
     public ArrayList<Board> getBoardList() {
         return boardService.getAllBoardList();
     }
 
     // 글 리스트 페이지네이션, 검색
+    @ResponseBody
     @Transactional
     @GetMapping("/boardlist")
     public ArrayList<Board> getBoardList(Criteria criteria){
@@ -90,6 +91,7 @@ public class BoardRestAPI {
 
     // 글 조회
     @Transactional
+    @ResponseBody
     @PostMapping("/board/{b_no}")
     public Map<String, Object> getBoard(@PathVariable("b_no") int b_no){
         log.info("[GET BoardAPI (/board/{b_no})] B_NO : " + b_no);
@@ -100,12 +102,12 @@ public class BoardRestAPI {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("board", boardService.getBoard(b_no));
         result.put("replyList", replyService.getReplyList(b_no));
-
         return result;
     }
 
 
     // 글 작성
+    @ResponseBody
     @PostMapping("/board/make")
     public String registerPost(@RequestBody Board board){
         log.info("[POST BoardAPI (/board)] BOARD : " + board);
@@ -115,6 +117,7 @@ public class BoardRestAPI {
     }
 
     // 글 수정
+    @ResponseBody
     @PutMapping("/board/update")
     public void modify(@RequestBody Board board){
         log.info("[PUT BoardAPI (/board)] BOARD : " + board);
@@ -123,6 +126,7 @@ public class BoardRestAPI {
 
     // 글 삭제
     @Transactional
+    @ResponseBody
     @PostMapping("/board/remove")
     public void remove(@RequestBody Board board){
         log.info("[DELETE BoardAPI (/board)] BOARD : " + board);
