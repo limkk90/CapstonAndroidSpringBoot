@@ -4,8 +4,8 @@
 <mapper namespace="com.example.android.Mapper.UserMapper">
     <!--    회원가입-->
     <insert id="join">
-        insert into user_tb(u_id, u_email, u_pwd, u_point, u_reg_dt)
-        values(#{u_id}, #{u_email}, #{u_pwd}, #{u_point}, sysdate)
+        insert into user_tb(u_id, u_email, u_pwd, u_car, u_point, u_reg_dt)
+        values(#{u_id}, #{u_email}, #{u_pwd},#{u_car} ,#{u_point}, sysdate)
     </insert>
 
     <!--    로그인-->
