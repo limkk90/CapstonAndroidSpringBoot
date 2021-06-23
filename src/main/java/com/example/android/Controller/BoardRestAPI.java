@@ -95,7 +95,6 @@ public class BoardRestAPI {
     @PostMapping("/board/{b_no}")
     public Map<String, Object> getBoard(@PathVariable("b_no") int b_no){
         log.info("[GET BoardAPI (/board/{b_no})] B_NO : " + b_no);
-
         boardService.increaseVisit(b_no);
 
         Map<String, Object> result = new HashMap<String, Object>();
@@ -110,7 +109,6 @@ public class BoardRestAPI {
     @PostMapping("/board/make")
     public String registerPost(@RequestBody Board board){
         log.info("[POST BoardAPI (/board)] BOARD : " + board);
-
         boardService.register(board);
 //        fileService.uploadFile(board.getFile(), board.getB_no());
         return "성공";
@@ -121,7 +119,6 @@ public class BoardRestAPI {
     @PutMapping("/board/update")
     public void modify(@RequestBody Board board){
         log.info("[PUT BoardAPI (/board)] BOARD : " + board);
-
         boardService.updateBoard(board);
     }
 
