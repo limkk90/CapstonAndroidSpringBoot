@@ -2,6 +2,7 @@ package com.example.android.Mapper;
 
 
 import com.example.android.Dto.User;
+import com.example.android.Dto.Warning;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public interface UserMapper {
 
     Optional<User> getUser(String u_id); // JWT
 
+    void warning(Warning warning); // 경고 주기
 
 
 }

@@ -63,4 +63,10 @@
         where u_email = #{u_email}
     </select>
 
+    <!-- 경고 주기 -->
+    <insert id="warning">
+        insert into warning_tb
+        values (sysdate, #{u_id}, #{w_cat}, #{w_reason}, #{w_content})
+    </insert>
+
 </mapper>

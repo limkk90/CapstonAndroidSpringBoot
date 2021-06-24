@@ -130,5 +130,11 @@ public class UserRestAPI {
         }
     }
 
+    @PostMapping("/user/warning")
+    public void warning(@RequestBody Warning warning) {
+        log.info("경고확인" + warning);
+        userService.warning(warning);
+    }
+
 }
 

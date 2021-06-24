@@ -2,6 +2,7 @@ package com.example.android.Service;
 
 
 import com.example.android.Dto.User;
+import com.example.android.Dto.Warning;
 import com.example.android.Mapper.UserMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,11 @@ public class UserService {
 
     public Optional<User> getUser(String u_id) {
         return userMapper.getUser(u_id);
+    }
+
+    // 경고 주기
+    public void warning(Warning warning) {
+        userMapper.warning(warning);
     }
 
 
