@@ -10,7 +10,7 @@
 
     <insert id="insertAnswer">
          insert into answer_tb
-         values(#{q_cd}, #{ans_content}, #{ans_writer})
+         values(#{q_cd}, #{ans_content}, sysdate ,#{ans_writer})
     </insert>
 
     <update id="updateAnswer">

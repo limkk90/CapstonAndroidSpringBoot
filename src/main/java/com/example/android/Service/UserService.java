@@ -40,6 +40,9 @@ public class UserService {
         userMapper.updateUser(user);
     }
 
+    // 회원정보 수정(차량수정 추가)
+    public void updateUser2(User user) {userMapper.updateUser2(user);}
+
     // 회원정보 조회
     public User getProfile(String u_id) {
         return userMapper.getProfile(u_id);

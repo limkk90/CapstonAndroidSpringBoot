@@ -5,7 +5,7 @@
     <!--    회원가입-->
     <insert id="join">
         insert into user_tb(u_id, u_email, u_pwd, u_car, u_point, u_reg_dt)
-        values(#{u_id}, #{u_email}, #{u_pwd},#{u_car} ,#{u_point}, sysdate)
+        values(#{u_id}, #{u_email}, #{u_pwd}, #{u_car}, #{u_point}, sysdate)
     </insert>
 
     <!--    로그인-->
@@ -19,6 +19,13 @@
     <update id="updateUser">
         update user_tb
         set u_pwd= #{u_pwd}
+        where u_id =#{u_id}
+    </update>
+
+    <!--    회원정보 수정, 차량번호 수정 추가 -->
+    <update id="updateUser2">
+        update user_tb
+        set u_pwd= #{u_pwd}, u_car = #{u_car}
         where u_id =#{u_id}
     </update>
 

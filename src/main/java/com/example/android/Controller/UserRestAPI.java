@@ -86,6 +86,16 @@ public class UserRestAPI {
         return "성공";
     }
 
+    // 회원정보 수정(차량 추가)
+    @PostMapping("/updated/{u_id}")
+    public String update2(@RequestBody User user) {
+        log.info("[POST UserAPI (/{u_id}/update)] User: " + user);
+        String secuPw = passwordEncoder.encode(user.getU_pwd());
+        user.setU_pwd(secuPw);
+        userService.updateUser2(user);
+        return "성공";
+    }
+
     // 회원정보 조회
     @PostMapping("/profile/{u_id}")
     public User profile(@PathVariable String u_id) {

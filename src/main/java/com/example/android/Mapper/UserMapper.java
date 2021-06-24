@@ -15,6 +15,8 @@ public interface UserMapper {
 
     void updateUser(User user); // 회원정보 수정
 
+    void updateUser2(User user); // 회원정보 수정 차량 수정추가
+
     User getProfile(String u_id); // 회원정보 조회
 
     User FindUser(String email); // 아이디 찾기
