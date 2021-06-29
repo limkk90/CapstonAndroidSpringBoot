@@ -1,5 +1,6 @@
 package com.example.android.Controller;
 
+
 import com.example.android.Dto.Rsvt;
 import com.example.android.Service.ChargerService;
 import com.example.android.Service.RsvtService;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Log4j2
@@ -16,25 +19,24 @@ import java.util.List;
 @ResponseBody
 @RequestMapping("/api")
 public class RsvtRestAPI {
-    @Autowired
-    UserService userService;
 
     @Autowired
-    RsvtService rsvtService;
+    private RsvtService rsvtService;
 
     @Autowired
-    ChargerService chargerService;
+    private ChargerService chargerService;
 
     // 현재부터 24시 예약 조회
     @GetMapping("/todays-reservation")
-    public List<Rsvt> TodaysRsvt(String chg_id, String stat_id) {
+    public ArrayList<Rsvt> TodaysRsvt(String chg_id, String stat_id) {
         log.info("[GET RsvtAPI (/todays-reservation)] CHG_ID: " + chg_id);
         log.info("[GET RsvtAPI (/todays-reservation)] STAT_ID: " + stat_id);
         return rsvtService.getTodaysRsvt(chg_id, stat_id);
     }
 
+    // 내 예약 조회
     @GetMapping("/{u_id}/reservation")
-    public List<Rsvt> getMyRsvt(@PathVariable String u_id) {
+    public ArrayList<Rsvt> getMyRsvt(@PathVariable String u_id) {
         log.info("[GET RsvtAPI (/{u_id}/reservation)] U_ID: " + u_id);
         return rsvtService.getMyRsvt(u_id);
     }
@@ -56,16 +58,6 @@ public class RsvtRestAPI {
     @PostMapping("/reservation")
     public Boolean reservation(@RequestBody Rsvt rsvt) {
         log.info("[POST RsvtAPI (/reservation)] Rsvt: " + rsvt);
-
-//        // 매월 경고횟수 2회 이상일 시
-//        if (userService.getWarningCnt(rsvt.getU_id()) > 1) {
-//            // db에서 경고 받은것 중 마지막 경고의 날짜를 가져옴
-//            WranDate w_date = userService.getLastWdateWithCurDate(rsvt.getU_id());
-//            log.info("w_date : " + w_date.toString());
-//
-//            // 현재시간과 3일 더해준 시간을 비교해서 현재시간이 +3한 시간보다 이전이면 return false;
-//            if (w_date.getD_date().after(new Date())) return false;
-//        }
 
         // 예약전용 충전기가 아닐 시 예약 안됨
         if (chargerService.isRservation(rsvt.getStat_id(), rsvt.getChg_id()).equals("N")) return false;
@@ -91,8 +83,4 @@ public class RsvtRestAPI {
         log.info("[POST RsvtAPI (/{u_id}/reservation)] Rsvt: " + rsvt);
         rsvtService.cancelRsvt(rsvt);
     }
-
-
-
-
 }

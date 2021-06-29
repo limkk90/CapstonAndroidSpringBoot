@@ -24,7 +24,7 @@ public class AnswerRestAPI {
     }
 
     // 답변 등록
-    @PostMapping("/answer")
+    @PostMapping("/answer/go")
     public void insertAnswer(@RequestBody Answer answer) {
         log.info("[POST : AnswerAPI (/answer)] Answer : " + answer);
         answerService.insertAnswer(answer);

@@ -2,8 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.android.Mapper.RsvtMapper">
-    <select id="insertRsvt" resultType="com.example.android.Dto.Marker">
-        select stat_id, stat_lng, stat_lat, stat_nm, stat_addr
-        from station_tb
+    <select id="getTodaysRsvt" resultType="com.example.android.Dto.Rsvt">
+         select *
+         from (select *
+               from rsvt_tb
+               where rsvt_cancel is null
+                 and stat_id = #{stat_id}
+                 and chg_id = #{chg_id}
+               order by rsvt_start, rsvt_end)
+         where rsvt_start between systimestamp and systimestamp + 1
+            or rsvt_end between systimestamp and systimestamp + 1
+    </select>
+
+    <select id="getMyRsvt" resultType="com.example.android.Dto.Rsvt">
+        select *
+        from rsvt_tb
+        where u_id = #{u_id}
+        order by rsvt_dtt desc
+    </select>
+
+    <insert id="insertRsvt">
+        insert into rsvt_tb (rsvt_dtt, stat_id, chg_id, rsvt_start, rsvt_end, u_id)
+        values(systimestamp, #{stat_id}, #{chg_id}, #{rsvt_start}, #{rsvt_end}, #{u_id})
+    </insert>
+
+    <update id="cancelRsvt">
+        update rsvt_tb
+        set rsvt_cancel = systimestamp
+        where rsvt_dtt = #{rsvt_dtt} and u_id = #{u_id}
+    </update>
+
+    <select id="checkRsvt" resultType="com.example.android.Dto.Rsvt">
+        select *
+        from rsvt_tb
+        where chg_id = #{chg_id}
+                  and stat_id = #{stat_id}
+                  and u_id = #{u_id}
+                  and rsvt_start between systimestamp and systimestamp + 1
+                  or rsvt_end between systimestamp and systimestamp + 1
+        order by rsvt_dtt
+    </select>
+
+    <select id="getChargerMyRsvt" resultType="com.example.android.Dto.Rsvt">
+        select *
+        from   (select *
+                from rsvt_tb
+                where rsvt_cancel is null
+                    and stat_id = #{stat_id}
+                    and chg_id = #{chg_id}
+                    and u_id = #{u_id}
+                order by rsvt_start, rsvt_end)
+        where rsvt_start between systimestamp and systimestamp + 1
+           or rsvt_end between systimestamp and systimestamp + 1
     </select>
 </mapper>

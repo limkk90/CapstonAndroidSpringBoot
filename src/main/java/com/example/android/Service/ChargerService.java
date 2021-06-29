@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class ChargerService {
     private ChargerMapper chargerMapper;
 
     // 특정 충전소 충전기 리스트
-    public List<Charger> getChargerList(String stat_id){
+    public ArrayList<Charger> getChargerList(String stat_id){
         return chargerMapper.getChargerList(stat_id);
     };
 

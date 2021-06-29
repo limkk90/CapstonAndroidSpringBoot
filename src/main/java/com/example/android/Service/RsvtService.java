@@ -1,5 +1,6 @@
 package com.example.android.Service;
 
+
 import com.example.android.Dto.Charger;
 import com.example.android.Dto.Rsvt;
 import com.example.android.Mapper.ChargerMapper;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,6 +18,7 @@ import java.util.TimerTask;
 @Service
 @Log4j2
 public class RsvtService {
+
     @Autowired(required = false)
     private RsvtMapper rsvtMapper;
 
@@ -28,8 +31,8 @@ public class RsvtService {
     }
 
     // 오늘 예약조회
-    public List<Rsvt> getTodaysRsvt(String chg_id, String stat_id) {
-        List<Rsvt> result = rsvtMapper.getTodayRsvt(chg_id, stat_id);
+    public ArrayList<Rsvt> getTodaysRsvt(String chg_id, String stat_id) {
+        ArrayList<Rsvt> result = rsvtMapper.getTodaysRsvt(chg_id, stat_id);
 
         result.forEach(rsvt -> {
             rsvt.setStart(rsvt.getRsvt_start());
@@ -41,8 +44,8 @@ public class RsvtService {
     }
 
     // 내 예약 조회
-    public List<Rsvt> getMyRsvt(String u_id) {
-        List<Rsvt> result = rsvtMapper.getMyRsvt(u_id);
+    public ArrayList<Rsvt> getMyRsvt(String u_id) {
+        ArrayList<Rsvt> result = rsvtMapper.getMyRsvt(u_id);
 
         result.forEach(rsvt -> {
             rsvt.setStart(rsvt.getRsvt_start());
@@ -76,7 +79,7 @@ public class RsvtService {
             }
         }
 
-        return rsvtMapper.insertRsvt(rsvt);
+       return rsvtMapper.insertRsvt(rsvt);
     }
 
     // 예약 취소
@@ -114,5 +117,4 @@ public class RsvtService {
         timer.schedule(timeout, 10 * 60 * 1000);
         // t.schedule(tt, 10 * 60 * 1000); // 지정된 시간 후에 실행 (분 * 초 * 미리초)
     }
-
 }

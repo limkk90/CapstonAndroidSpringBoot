@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -21,7 +22,7 @@ public class ChargerRestAPI {
 
     // 특정 충전소 충전기 리스트
     @GetMapping("/{stat_id}/chargerlist")
-    public List<Charger> getChargerList(@PathVariable("stat_id") String stat_id){
+    public ArrayList<Charger> getChargerList(@PathVariable("stat_id") String stat_id){
         log.info("getChargerListId:" + stat_id);
         log.info("getChargerList:" + chargerService.getChargerList(stat_id));
         return chargerService.getChargerList(stat_id);

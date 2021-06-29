@@ -12,4 +12,22 @@
         insert into charger_tb
         values (#{chg_id}, #{chg_type}, #{chg_method}, #{chg_st}, #{chg_st_dt}, #{chg_rsvt}, #{agcy_id}, #{stat_id});
     </insert>
+
+    <select id="chargerState" resultType="com.example.android.Dto.Charger">
+        select *
+        from charger_tb
+        where stat_id = #{stat_id} and chg_id = #{chg_id}
+    </select>
+
+    <update id="updateState">
+        update charger_tb
+        set chg_st = #{chg_st}
+        where stat_id = #{stat_id} and chg_id = #{chg_id}
+    </update>
+
+    <select id="isRservation" resultType="String">
+        select CHG_RSVT
+        from charger_tb
+        where stat_id = #{stat_id} and chg_id = #{chg_id}
+    </select>
 </mapper>

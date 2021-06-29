@@ -5,6 +5,8 @@ import com.example.android.Dto.Answer;
 import com.example.android.Mapper.AnswerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+
 public class AnswerService {
 
     @Autowired
@@ -17,6 +19,8 @@ public class AnswerService {
 
     // 답변 등록
     public void insertAnswer(Answer answer) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        answer.setQ_cd(localDateTime.toString());
         answerMapper.insertAnswer(answer);
     }
 
